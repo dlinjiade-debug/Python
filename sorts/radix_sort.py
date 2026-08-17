@@ -11,6 +11,11 @@ RADIX = 10
 
 def radix_sort(list_of_ints: list[int]) -> list[int]:
     """
+    Sort a list of non-negative integers in ascending order in place.
+
+    Radix sort in this implementation does not support negative integers.
+    ``ValueError`` is raised instead of returning an incorrectly ordered list.
+
     Examples:
     >>> radix_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
@@ -21,7 +26,15 @@ def radix_sort(list_of_ints: list[int]) -> list[int]:
     True
     >>> radix_sort([1,100,10,1000]) == sorted([1,100,10,1000])
     True
+
+    >>> radix_sort([3, -1, 4])
+    Traceback (most recent call last):
+    ...
+    ValueError: radix_sort only accepts non-negative integers
     """
+    if any(number < 0 for number in list_of_ints):
+        raise ValueError("radix_sort only accepts non-negative integers")
+
     placement = 1
     max_digit = max(list_of_ints)
     while placement <= max_digit:
